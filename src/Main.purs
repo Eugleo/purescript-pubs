@@ -19,33 +19,29 @@ import Unsafe.Coerce (unsafeCoerce)
 main :: Effect Unit
 main = do
   input <- split (Pattern "\n") <$> readTextFile UTF8 "input.txt"
-  log <<< show $ fromInput input
+  log <<< show $ solveInput input
   where
-  fromInput :: Array String -> Maybe Int
-  fromInput [ tape, word ] = do
+  solveInput :: Array String -> Maybe Int
+  solveInput [ tape, word ] = do
     t <- fromString tape
     w <- fromString word
+    -- máme dva stringy, t a w, které odpovídají dvěma řádkům v souboru input.txt
     ?callSolveHere
 
-  fromInput _ = Nothing
+  solveInput _ = Nothing
 
-newtype Tape a
-  = Tape (NonEmptyArray a)
+{-
 
-distanceTo :: Int -> Int -> Int
-distanceTo a b = abs $ a - b
+data Tape = ...
 
-findPositions :: forall a. Eq a => Tape a -> a -> Array Int
-findPositions (Tape arr) element =
-  map fst
-    $ filter ((element == _) <<< snd)
-    $ zip (range 0 (length arr - 1)) arr
+-}
+{-
 
-solve :: forall a. Eq a => Tape a -> NonEmptyArray a -> Int -> Int -> Maybe Int
-solve tape@(Tape arr) word i x = case word !! (i + 1) of
-  Nothing -> Just 0
-  Just element -> minimum $ mapMaybe goto $ findPositions tape element
-    where
-    goto newX = do
-      distanceFromNext <- solve tape word (i + 1) newX
-      pure $ distanceFromNext + x `distanceTo` newX
+solve vrátí
+- Nothing pokud nemůžeme daná piva vypít
+- (Just l) pokud je můžeme vypít na nějaké cestě délky l
+
+solve ... -> Maybe Int
+solve ... = ...
+
+-}
