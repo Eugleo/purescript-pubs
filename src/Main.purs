@@ -22,9 +22,9 @@ main = do
   log <<< show $ solveInput input
   where
   solveInput :: Array String -> Maybe Int
-  solveInput [ tape, word ] = do
-    t <- fromString tape
-    w <- fromString word
+  solveInput [ pubs, beers ] = do
+    p <- fromString pubs
+    b <- fromString beers
     -- máme dva stringy, t a w, které odpovídají dvěma řádkům v souboru input.txt
     ?callSolveHere
 
@@ -32,7 +32,7 @@ main = do
 
 {-
 
-data Tape = ...
+data Pubs = ...
 
 -}
 {-
